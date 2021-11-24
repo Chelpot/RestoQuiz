@@ -1,0 +1,52 @@
+{% include "restoQuiz/header.html" %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'restoQuiz/style.css' %}" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html">
+
+<body>
+<div class="bg_image"></div>
+<div class="indexTitle bg-text-title">
+    <h1>Bienvenue sur le quiz du Del Arte !</h1>
+</div>
+<div class="index">
+    <div class="container indexBox inline bg-text">
+        <div class="questionContainer">
+            <div class="row">
+                <div class="flex">
+                    <h1 class="removeHyperlinkStyling">
+                        {{question.question_text}}
+                    </h1>
+                </div>
+            </div>
+            <input type="checkbox" class="btn-check" id="btn-check-2" checked autocomplete="off">
+<label class="btn btn-primary" for="btn-check-2">Checked</label>
+            {% for choice in question.choice_set.all %}
+            <li>{{ choice.choice_text }}</li>
+            {% endfor %}
+            <div class="row">
+                <button class="col-lg-5 col-md-6 col-sm-12 m-1 btn btn-lg btn-dark questionChoice ">
+                    1 of 3
+                </button>
+                <button class="col-lg-5 col-md-6 col-sm-12 m-1 btn btn-lg btn-dark questionChoice">
+                    2 of 3
+                </button>
+                <button class="col-lg-5 col-md-6 col-sm-12 m-1 btn btn-lg btn-dark questionChoice">
+                    3 of 3
+                </button>
+                <button class="col-lg-5 col-md-6 col-sm-12 m-1 btn btn-lg btn-dark questionChoice ">
+                    1 of 3
+                </button>
+                <button class="col-lg-5 col-md-6 col-sm-12 m-1 btn btn-lg btn-dark questionChoice">
+                    2 of 3
+                </button>
+                <button class="col-lg-5 col-md-6 col-sm-12 m-1 btn btn-lg btn-dark questionChoice">
+                    3 of 3
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+

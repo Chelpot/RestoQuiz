@@ -1,0 +1,147 @@
+body {
+    min-height: 100%;
+    color: #357C44;
+    padding-top: 70px;
+    font: italic small-caps bold 16px/2 cursive;
+    text-align: center;
+}
+
+.bg_image {
+  background-image: url("images/background_pizza.png");
+  /* Add the blur effect */
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.bg-text {
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+  color: white;
+  font-weight: bold;
+  border: 3px solid #f1f1f1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 80%;
+  padding: 20px;
+  text-align: center;
+}
+.bg-text-title {
+  background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+  color: white;
+  font-weight: bold;
+  border: 3px solid #f1f1f1;
+  position: absolute;
+  top: 20 %;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 60%;
+  padding: 20px;
+
+}
+
+.font25{
+    font-size: 25px;
+}
+
+.quizItemFromMenu{
+    font-size: 25px;
+}
+
+.inline{
+    display: inline-block;
+    vertical-align: top;
+}
+
+.flex{
+    display: flex;
+}
+
+.indexContainerUl{
+    list-style: none;
+    margin-top: 1em;
+    padding: 0;
+    width: 100%;
+}
+
+
+
+.quizItemFromMenu{
+  color: inherit;
+  text-decoration: none !important;
+}
+.quizItemFromMenu:hover{
+  color: gold;
+  text-decoration: none !important;
+}
+
+/*Hover css transition*/
+.div-hover-question::before{
+  transform: scaleX(0);
+  transform-origin: bottom right;
+ }
+
+.div-hover-question:hover::before{
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.div-hover-question::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  inset: 0 0 0 0;
+  background: #8D9B55;
+  z-index: -1;
+  transition: transform .3s ease;
+}
+
+
+
+
+
+
+.indexTitle{
+    float: left;
+    color: #DAF7A6;
+    /* Firefox */
+    width: -moz-calc(60% - 50px);
+    /* WebKit */
+    width: -webkit-calc(60% - 50px);
+    /* Opera */
+    width: -o-calc(60% - 50px);
+    /* Standard */
+    width: calc(60% - 50px);
+}
+
+.index{
+
+    width: 80%;
+    float: left;
+}
+
+.indexBox{
+    margin: 1em;
+    /* Firefox */
+    width: -moz-calc(80% - 50px);
+    /* WebKit */
+    width: -webkit-calc(80% - 50px);
+    /* Opera */
+    width: -o-calc(80% - 50px);
+    /* Standard */
+    width: calc(80% - 50px);
+    padding: 2em 4em;
+}
+
