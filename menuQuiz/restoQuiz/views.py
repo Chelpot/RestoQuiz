@@ -13,7 +13,36 @@ def detail(request, question_id):
     context = {
         "question": question,
         "choices": choices,
+        "question_answered": False,
+        "next_question": None
                }
+    if Question.objects.filter(pk=question_id).exists():
+        context.update({"next_question": question_id + 1})
+        print(question_id)
+
+    if request.method == 'POST':
+        buttons_states_list=[]
+        dict_recap_answer={}
+
+        are_answers_correct = True
+        for i in range(0, len(choices)):
+            #get checkbox state from html
+            state = request.POST.get('btn-check-{}'.format(i))
+            buttons_states_list.append(state)
+
+            #Check if correct answer
+            if ((choices[i].is_correct_answer and not state) or (not choices[i].is_correct_answer and state=="on")):
+                answer = {choices[i]: "Mauvaise réponse",}
+                are_answers_correct = False
+            else:
+                answer = {choices[i]: "Bonne réponse",}
+            dict_recap_answer.update(answer)
+
+        context.update({
+            'all_good': are_answers_correct,
+            'recap_answers': dict_recap_answer,
+            'question_answered': True,
+        })
 
     return render(request, 'restoQuiz/question.html', context)
 

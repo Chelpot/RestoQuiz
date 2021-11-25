@@ -6,9 +6,9 @@
 
 <body>
 <div class="bg_image"></div>
-<div class="indexTitle bg-text-title">
+<!--<div class="indexTitle bg-text-title">
     <h1>Bienvenue sur le quiz du Del Arte !</h1>
-</div>
+</div>-->
 <div class="index">
     <div class="container indexBox inline bg-text">
         <div class="questionContainer">
@@ -19,31 +19,44 @@
                     </h1>
                 </div>
             </div>
-            <input type="checkbox" class="btn-check" id="btn-check-2" checked autocomplete="off">
-<label class="btn btn-primary" for="btn-check-2">Checked</label>
-            {% for choice in question.choice_set.all %}
-            <li>{{ choice.choice_text }}</li>
-            {% endfor %}
-            <div class="row">
-                <button class="col-lg-5 col-md-6 col-sm-12 m-1 btn btn-lg btn-dark questionChoice ">
-                    1 of 3
+            <form method="post">
+                {% csrf_token %}
+                <div class="row vertical-align">
+                    {% for choice in choices %}
+
+                    <div class="col-lg-5 col-md-6 col-sm-12 m-1 btn btn-lg btn-dark btn-container-perso">
+                        <input type="checkbox" class="btn-check" id="btn-check-{{ forloop.counter0 }}"
+                               name="btn-check-{{ forloop.counter0 }}"
+                               autocomplete="off">
+                        <label class="btn btn-outline-success fill-space-available"
+                               for="btn-check-{{ forloop.counter0 }}">{{ choice.choice_text }}</label><br>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button class="col-lg-5 col-md-6 col-sm-12 m-1 btn btn-lg btn-dark btn-detail-validate" type="submit">
+                    Valider les réponses
                 </button>
-                <button class="col-lg-5 col-md-6 col-sm-12 m-1 btn btn-lg btn-dark questionChoice">
-                    2 of 3
-                </button>
-                <button class="col-lg-5 col-md-6 col-sm-12 m-1 btn btn-lg btn-dark questionChoice">
-                    3 of 3
-                </button>
-                <button class="col-lg-5 col-md-6 col-sm-12 m-1 btn btn-lg btn-dark questionChoice ">
-                    1 of 3
-                </button>
-                <button class="col-lg-5 col-md-6 col-sm-12 m-1 btn btn-lg btn-dark questionChoice">
-                    2 of 3
-                </button>
-                <button class="col-lg-5 col-md-6 col-sm-12 m-1 btn btn-lg btn-dark questionChoice">
-                    3 of 3
-                </button>
+
+            </form>
+            {% if question_answered == True %}
+            <div>
+                {% if all_good %}
+                <p>Félicitation, toutes la question a été parfaitement répondu !</p>
+                {% else %}
+                {% for k, v in recap_answers.items%}
+                <p>{{k}} : {{v}}</p>
+                {% endfor %}
+                {% endif %}
+                <p>{{question.answer_text}}</p>
+
             </div>
+            <a href="{% url 'restoQuiz:detail' next_question%} ">
+                <button class="col-lg-5 col-md-6 col-sm-12 m-1 btn btn-lg btn-success" type="submit">
+                    Question Suivante
+                </button>
+            </a>
+
+            {% endif %}
         </div>
     </div>
 </div>

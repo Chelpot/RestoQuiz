@@ -145,3 +145,22 @@ body {
     padding: 2em 4em;
 }
 
+.fill-space-available{
+    width: 100%;
+    height: 100%;
+    padding: 10;
+}
+
+.btn-container-perso{
+    margin: 0;
+    padding: 0;
+}
+
+.vertical-align{
+    text-align: center;
+    display: block;
+}
+
+.btn-detail-validate{
+    padding 1000;
+}
