@@ -38,7 +38,7 @@ DEBUG = env('DEBUG')
 
 
 
-ALLOWED_HOSTS = ['.localhost', '127.0.0.1', '[::1]', 'kess-finders.herokuapp.com', 'kess-finders.herokuapp.com/kess']
+ALLOWED_HOSTS = ['.localhost', '127.0.0.1', '[::1]', 'https://resto-quiz.herokuapp.com/']
 
 
 
