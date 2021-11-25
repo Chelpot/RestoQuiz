@@ -11,21 +11,35 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+
+import django_heroku
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Initialise environment variables
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+environ.Env.read_env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-3x%rg1va!eu8l)emn)=wx#ajpk_+f%mq_n%pa__fx&87o5^d&p'
+SECRET_KEY = env('SECRET_KEY')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
+
+
+ALLOWED_HOSTS = ['.localhost', '127.0.0.1', '[::1]', 'kess-finders.herokuapp.com', 'kess-finders.herokuapp.com/kess']
+
 
 
 # Application definition
@@ -50,7 +64,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'menuQuizSite.urls'
+ROOT_URLCONF = 'menuQuiz.urls'
 
 TEMPLATES = [
     {
@@ -68,7 +82,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'menuQuizSite.wsgi.application'
+WSGI_APPLICATION = 'menuQuiz.wsgi.application'
 
 
 # Database
@@ -106,7 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Paris'
 
 USE_I18N = True
 
@@ -115,12 +129,29 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
-
-STATIC_URL = '/static/'
+# All settings common to all environments
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = '/kess/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+CSRF_COOKIE_SECURE = env('CSRF_COOKIE_SECURE')=='True'
+
+SESSION_COOKIE_SECURE = env('SESSION_COOKIE_SECURE')=='True'
+
+SECURE_SSL_REDIRECT = False
+
+# Static files (CSS, JavaScript, Images)
+
+STATIC_URL = '/static/'
+STATICFILES_DIR = [
+    os.path.join(BASE_DIR, 'static')
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles-cdn')
