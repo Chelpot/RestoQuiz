@@ -3,23 +3,24 @@ body {
     color: #357C44;
     padding-top: 70px;
     font: italic small-caps bold 16px/2 cursive;
-    text-align: center;
 }
 
 .bg_image {
   background-image: url("images/background_pizza.png");
-  /* Add the blur effect */
-  filter: blur(8px);
-  -webkit-filter: blur(8px);
 
-  /* Full height */
   height: 100%;
 
   /* Center and scale the image nicely */
-  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
+
 }
+.textaligncenter{
+      text-align: center;
+}
+
+
 
 .bg-text {
   background-color: rgb(0,0,0); /* Fallback color */
@@ -27,25 +28,17 @@ body {
   color: white;
   font-weight: bold;
   border: 3px solid #f1f1f1;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
   width: 80%;
   padding: 20px;
-  text-align: center;
+
 }
+
 .bg-text-title {
   background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
   color: white;
   font-weight: bold;
   border: 3px solid #f1f1f1;
-  position: absolute;
-  top: 20 %;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
+  align-self: center;
   width: 60%;
   padding: 20px;
 
@@ -59,27 +52,33 @@ body {
     font-size: 25px;
 }
 
-.inline{
-    display: inline-block;
-    vertical-align: top;
-}
-
-.flex{
-    display: flex;
-}
 
 .indexContainerUl{
     list-style: none;
-    margin-top: 1em;
+    margin-top: 0.5em;
     padding: 0;
     width: 100%;
+    vertical-align: top;
+    display: flex;
+
 }
 
+.indexPresentation{
+    padding: 5em 0;
+    margin: 0 auto;
+}
+
+.index{
+    width: 80%;
+    vertical-align: top;
+    margin: 10em auto;
+}
 
 
 .quizItemFromMenu{
   color: inherit;
   text-decoration: none !important;
+  margin: 0 1em 0 1em;
 }
 .quizItemFromMenu:hover{
   color: gold;
@@ -108,29 +107,12 @@ body {
   transition: transform .3s ease;
 }
 
-
-
-
-
-
 .indexTitle{
-    float: left;
     color: #DAF7A6;
-    /* Firefox */
-    width: -moz-calc(60% - 50px);
-    /* WebKit */
-    width: -webkit-calc(60% - 50px);
-    /* Opera */
-    width: -o-calc(60% - 50px);
-    /* Standard */
-    width: calc(60% - 50px);
+    margin: 20 auto;
 }
 
-.index{
 
-    width: 80%;
-    float: left;
-}
 
 .indexBox{
     margin: 1em;
@@ -156,11 +138,24 @@ body {
     padding: 0;
 }
 
-.vertical-align{
-    text-align: center;
-    display: block;
-}
-
 .btn-detail-validate{
     padding 1000;
+}
+
+
+.userNavbar{
+    margin-right: 0px!important;
+}
+
+.navbar-brand{
+    position: relative;
+    margin-left: 45px;
+}
+
+.navbar-logo{
+    position: absolute;
+    top: 0;
+    left: -45;
+    width: 40px;
+    height: 40px;
 }

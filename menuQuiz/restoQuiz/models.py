@@ -1,4 +1,12 @@
+import datetime
+import uuid
+
+from django.core.exceptions import ValidationError
 from django.db import models
+
+from django.contrib.auth.models import (
+    AbstractBaseUser, BaseUserManager
+)
 
 class Question(models.Model):
     question_text = models.CharField(max_length=1000, verbose_name='Intitulé de la question')
@@ -16,3 +24,71 @@ class Choice(models.Model):
 
     def __str__(self):
         return self.choice_text
+
+
+
+
+
+"""
+================================================================================
+USER PART
+================================================================================
+"""
+
+
+class UserManager(BaseUserManager):
+    def create_user(self, email, name, password=None):
+        if not email:
+            raise ValueError('Users must have an email address')
+        user = self.model(
+            email=self.normalize_email(email),
+            name=name,
+            creation_date=datetime.datetime.now(),
+        )
+        user.set_password(password)
+        user.save()
+        return user
+
+    def create_superuser(self, email, name, password):
+        if not email:
+            raise ValueError('Users must have an email address')
+        user = self.create_user(
+            email=self.normalize_email(email),
+            name=name,
+            password=password
+        )
+        user.is_staff = True
+        user.is_superuser = True
+        user.save(using=self._db)
+        return user
+
+
+class User(AbstractBaseUser):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    email = models.EmailField(
+        verbose_name='email address',
+        max_length=255,
+        unique=True,
+    )
+    name = models.CharField(max_length=32, blank=False, null=False, unique=True)
+    creation_date = models.DateTimeField(default=datetime.datetime.now())
+
+    is_staff = models.BooleanField(default=True)
+    is_superuser = models.BooleanField(default=True)
+
+    objects = UserManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['name']
+
+    def __str__(self):
+        return self.email
+
+    def has_perm(self, perm, obj=None):
+        return self.is_superuser
+
+    def has_module_perms(self, app_label):
+        return self.is_superuser
+
+    class Meta:
+        app_label = 'restoQuiz'

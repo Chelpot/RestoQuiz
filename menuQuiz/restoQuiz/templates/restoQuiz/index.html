@@ -4,33 +4,26 @@
 <link rel="stylesheet" type="text/css" href="{% static 'restoQuiz/style.css' %}" xmlns="http://www.w3.org/1999/html"
       xmlns="http://www.w3.org/1999/html">
 
-<body>
-<div class="bg_image"></div>
-<div class="indexTitle bg-text-title">
-    <h1>Bienvenue sur RestoQuiz !</h1>
-</div>
+<body class="bg_image">
 
-
-<div class="bg-text">
-    {% for question in question_list %}
-    <div class="index inline ">
-        <div class="container">
-            <ul class="indexContainerUl ">
-                <li>
-                    <h1>
-                        <div class="flex">
-                            <div class="inline">
-                                <a class="quizItemFromMenu" href="{% url 'restoQuiz:detail' question.id %}">
-                                    {{ question.question_text }}
-                                </a>
-                            </div>
-                        </div>
-                    </h1>
-                </li>
-            </ul>
-        </div>
+<div class="index ">
+    <div class="indexTitle bg-text-title">
+        <h1>Bienvenue sur RestoQuiz !</h1>
     </div>
-    {% endfor %}
+
+    <div class="bg-text indexPresentation">
+        {% for question in question_list %}
+        <div class="container ">
+            <div class="inline">
+                <a class="quizItemFromMenu" href="{% url 'restoQuiz:detail' question.id %}">
+                    {{ question.question_text }}
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+
 </div>
 
 

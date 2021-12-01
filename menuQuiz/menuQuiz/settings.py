@@ -54,6 +54,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+AUTH_USER_MODEL = 'restoQuiz.User'
+AUTHENTICATION_BACKENDS = ['restoQuiz.auth.CheckPasswordBackend',
+                           'django.contrib.auth.backends.ModelBackend']
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -142,7 +146,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = '/kess/'
+LOGIN_REDIRECT_URL = '/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
