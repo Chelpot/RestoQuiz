@@ -23,6 +23,13 @@
         {% endfor %}
     </div>
 
+    <form method="post">
+        {% csrf_token %}
+        <button class="col-lg-5 col-md-6 col-sm-12 m-1 btn btn-lg btn-dark btn-detail-validate" type="submit">
+            Lancer le quiz
+        </button>
+
+    </form>
 
 </div>
 

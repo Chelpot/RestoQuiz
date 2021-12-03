@@ -1,7 +1,7 @@
 from datetime import *
 
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Question, Choice, User
+from .models import Question, Choice, User, SessionQuiz
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseRedirect
 from django.template.defaultfilters import register
@@ -20,12 +20,20 @@ def index(request):
         context = {"question_list": latest_question_list}
         return render(request, 'restoQuiz/index.html', context)
 
+    if request.method == 'POST':
+        session = SessionQuiz(user)
+        session.add_questions(latest_question_list)
+        return redirect("/detail/",
+                        question_id=latest_question_list[0].id,
+                        session=session)
+
     context = {"question_list": latest_question_list, 'user': user}
     return render(request, 'restoQuiz/index.html', context)
 
-def detail(request, question_id):
+def detail(request, question_id, session):
     question = get_object_or_404(Question, pk=question_id)
     choices = Choice.objects.filter(question=question)
+    current_session_quiz = session
     context = {
         "question": question,
         "choices": choices,

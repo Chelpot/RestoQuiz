@@ -96,10 +96,10 @@ WSGI_APPLICATION = 'menuQuiz.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dfdlnt8csq0uhj',
-        'USER': 'chqyxxwhqsotzo',
+        'NAME': 'd2amsmg4jhe7go',
+        'USER': 'cbhiblecpimscf',
         'PASSWORD': os.environ.get('POSTGRES_PWD'),
-        'HOST': 'ec2-176-34-222-188.eu-west-1.compute.amazonaws.com',
+        'HOST': 'ec2-63-32-12-208.eu-west-1.compute.amazonaws.com',
         'PORT': '5432',
     }
 }
