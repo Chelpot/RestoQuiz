@@ -11,25 +11,23 @@
         <h1>Bienvenue sur RestoQuiz !</h1>
     </div>
 
-    <div class="bg-text indexPresentation">
-        {% for question in question_list %}
-        <div class="container ">
-            <div class="inline">
-                <a class="quizItemFromMenu" href="{% url 'restoQuiz:detail' question.id %}">
-                    {{ question.question_text }}
-                </a>
-            </div>
+    <div class="bg-text">
+
+        <div class="quizItemFromMenu">
+            {{ menus.description }}
         </div>
-        {% endfor %}
+        <div class="indexStartQuizButton">
+            {% csrf_token %}
+            <a href="{% url 'restoQuiz:detail' question_list.0.id menus.id%} ">
+                <button class=" col-lg-5 col-md-6 col-sm-12 m-1 btn btn-lg btn-dark">
+                    {{ menus.title }}
+                </button>
+            </a>
+
+        </div>
+
     </div>
 
-    <form method="post">
-        {% csrf_token %}
-        <button class="col-lg-5 col-md-6 col-sm-12 m-1 btn btn-lg btn-dark btn-detail-validate" type="submit">
-            Lancer le quiz
-        </button>
-
-    </form>
 
 </div>
 

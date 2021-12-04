@@ -12,6 +12,8 @@ from django.contrib.auth.models import (
 
 
 
+
+
 """
 ================================================================================
 USER PART
@@ -54,7 +56,7 @@ class User(AbstractBaseUser):
         unique=True,
     )
     name = models.CharField(max_length=32, blank=False, null=False, unique=True)
-    creation_date = models.DateTimeField(default=datetime.datetime.now())
+    creation_date = models.DateTimeField(auto_now_add=True)
 
     is_staff = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=True)
@@ -79,11 +81,18 @@ class User(AbstractBaseUser):
 
 
 
+class MenuQuiz(models.Model):
+    title = models.CharField(max_length=200, verbose_name="Titre du quiz")
+    description = models.CharField(max_length=500, verbose_name="Description")
+
+    def __str__(self):
+        return self.title
 
 class Question(models.Model):
+    associated_quiz = models.ForeignKey(MenuQuiz, on_delete=models.CASCADE, verbose_name="De quel quiz fait parti cette question ?")
     question_text = models.CharField(max_length=1000, verbose_name='Intitulé de la question')
-    pub_date = models.DateTimeField('date de publication')
-    answer_text = models.CharField(max_length=2000, verbose_name='Explication de la réponse', default="")
+    pub_date = models.DateTimeField('date de publication', auto_now_add=True)
+    answer_text = models.CharField(max_length=2000, verbose_name='Explication de la réponse', default="", blank=True)
 
     def __str__(self):
         return self.question_text
@@ -96,21 +105,14 @@ class Choice(models.Model):
     def __str__(self):
         return self.choice_text
 
-class MenuQuiz(models.Model):
-    title = models.CharField(max_length=200, verbose_name="Titre du quiz")
-    description = models.CharField(max_length=500, verbose_name="Description")
-
-    def __str__(self):
-        return self.title
 
 class SessionQuiz(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Utilisateur courant")
     menu = models.ForeignKey(MenuQuiz, on_delete=models.CASCADE, verbose_name="Quiz associé")
-    creation_date = models.DateTimeField(default=datetime.datetime.now())
+    creation_date = models.DateTimeField(auto_now_add=True)
+    current_question_index = models.IntegerField(blank=True, editable=True, default=0)
+    current_number_good_answer = models.IntegerField(default=0, editable=True)
 
-    def __init__(self, user):
-        self.list_of_questions = []
-        self.nb_good_answer = 0
     def add_questions(self, questions):
         self.list_of_questions = questions
 

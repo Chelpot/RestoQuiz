@@ -45,7 +45,7 @@ ALLOWED_HOSTS = ['.localhost', '127.0.0.1', '[::1]', 'resto-quiz.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
-    'restoQuiz.apps.RestoquizConfig',
+    'restoQuiz',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

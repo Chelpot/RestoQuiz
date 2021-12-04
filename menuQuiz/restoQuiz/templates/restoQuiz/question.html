@@ -21,7 +21,7 @@
             </div>
             <form method="post">
                 {% csrf_token %}
-                <div class="row vertical-align">
+                <div class="row question-choice-body">
                     {% for choice in choices %}
 
                     <div class="col-lg-5 col-md-6 col-sm-12 m-1 btn btn-lg btn-dark btn-container-perso">
@@ -33,7 +33,7 @@
                     </div>
                     {% endfor %}
                 </div>
-                <button class="col-lg-5 col-md-6 col-sm-12 m-1 btn btn-lg btn-dark btn-detail-validate" type="submit">
+                <button class="col-lg-5 col-md-6 col-sm-12 m-1 btn btn-lg btn-dark" type="submit">
                     Valider les réponses
                 </button>
 
@@ -50,8 +50,8 @@
                 <p>{{question.answer_text}}</p>
 
             </div>
-            <a href="{% url 'restoQuiz:detail' next_question%} ">
-                <button class="col-lg-5 col-md-6 col-sm-12 m-1 btn btn-lg btn-success" type="submit">
+            <a href="{% url 'restoQuiz:detail' next_question menu_id %} ">
+                <button class="col-lg-5 col-md-6 col-sm-12 m-1 btn btn-lg btn-success">
                     Question Suivante
                 </button>
             </a>

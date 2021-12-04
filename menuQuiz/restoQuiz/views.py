@@ -1,7 +1,7 @@
 from datetime import *
 
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import Question, Choice, User, SessionQuiz
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
+from .models import Question, Choice, User, SessionQuiz, MenuQuiz
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseRedirect
 from django.template.defaultfilters import register
@@ -13,33 +13,50 @@ from .forms import SignUpForm
 # Create your views here.
 def index(request):
 
-    latest_question_list = Question.objects.order_by('pub_date')
+    current_menu_quiz = MenuQuiz.objects.filter(pk=1)[0]
+    print(current_menu_quiz)
 
+    latest_question_list = Question.objects.filter(associated_quiz=current_menu_quiz)
+    print(latest_question_list)
     user = request.user
     if not user.is_authenticated:
-        context = {"question_list": latest_question_list}
+        context = {"question_list": latest_question_list,
+                   "menus": current_menu_quiz,}
         return render(request, 'restoQuiz/index.html', context)
 
-    if request.method == 'POST':
-        session = SessionQuiz(user)
-        session.add_questions(latest_question_list)
-        return redirect("/detail/",
-                        question_id=latest_question_list[0].id,
-                        session=session)
+    # if request.method == 'POST':
+    #
+    #     session = SessionQuiz.objects.filter(user=user, menu=current_menu_quiz)
+    #     #We want only one session per user and quiz
+    #     if session:
+    #         session.delete()
+    #
+    #     session = SessionQuiz(user=user, menu=current_menu_quiz, current_question_index=0, current_number_good_answer=0 )
+    #     session.add_questions(latest_question_list)
+    #     session.save()
+    #
+    #
+    #     return detail(request,
+    #                     question_id=session.list_of_questions[0].id,
+    #                     menu_id=current_menu_quiz.id)
 
-    context = {"question_list": latest_question_list, 'user': user}
+    context = {"question_list": latest_question_list,
+                   "menus": current_menu_quiz,}
     return render(request, 'restoQuiz/index.html', context)
 
-def detail(request, question_id, session):
+def detail(request, question_id, menu_id):
+
+    message = "propriété GET : {} et requête : {}".format(question_id, menu_id)
+
     question = get_object_or_404(Question, pk=question_id)
     choices = Choice.objects.filter(question=question)
-    current_session_quiz = session
     context = {
         "question": question,
         "choices": choices,
         "question_answered": False,
         "next_question": None,
         "number_good_answer": 0,
+        "menu_id": menu_id,
                }
     if Question.objects.filter(pk=question_id).exists():
         context.update({"next_question": question_id + 1})
