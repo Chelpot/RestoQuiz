@@ -150,7 +150,7 @@ LOGIN_REDIRECT_URL = '/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-CSRF_COOKIE_SECURE = env('CSRF_COOKIE_SECURE')=='True'
+# CSRF_COOKIE_SECURE = env('CSRF_COOKIE_SECURE')=='True'
 
 SESSION_COOKIE_SECURE = env('SESSION_COOKIE_SECURE')=='True'
 
