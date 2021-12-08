@@ -1,0 +1,25 @@
+{% include "restoQuiz/header.html" %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'restoQuiz/style.css' %}" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html">
+
+<body class="bg_image">
+<div></div>
+<!--<div class="indexTitle bg-text-title">
+    <h1>Bienvenue sur le quiz du Del Arte !</h1>
+</div>-->
+<div class="index">
+    <div class="container indexPresentation textaligncenter bg-text">
+            <p>Votre score pour ce quiz : {{score}}/{{nb_questions}}</p>
+            <a href="{% url 'restoQuiz:index'%} ">
+                <button class="col-lg-5 col-md-6 col-sm-12 m-1 btn btn-lg btn-dark">
+                    Retour à l'accueil
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+
+</body>
+

@@ -10,14 +10,12 @@ from django.db.models import Q
 
 from .forms import SignUpForm
 
-# Create your views here.
 def index(request):
 
+    # Todo: Make it better, not raw like this
     current_menu_quiz = MenuQuiz.objects.filter(pk=1)[0]
-    print(current_menu_quiz)
+    latest_question_list = Question.objects.filter(associated_quiz=current_menu_quiz).order_by("id")
 
-    latest_question_list = Question.objects.filter(associated_quiz=current_menu_quiz)
-    print(latest_question_list)
     user = request.user
     if not user.is_authenticated:
         context = {"question_list": latest_question_list,
@@ -41,26 +39,31 @@ def index(request):
     #                     menu_id=current_menu_quiz.id)
 
     context = {"question_list": latest_question_list,
-                   "menus": current_menu_quiz,}
+                   "menu": current_menu_quiz,}
     return render(request, 'restoQuiz/index.html', context)
 
 def detail(request, question_id, menu_id):
+    current_menu_quiz = MenuQuiz.objects.filter(pk=menu_id)[0]
 
-    message = "propriété GET : {} et requête : {}".format(question_id, menu_id)
-
+    question_query_set = Question.objects.filter(associated_quiz=current_menu_quiz).order_by('id')
     question = get_object_or_404(Question, pk=question_id)
+
+    is_last_question =  len((*question_query_set,))-1 == (*question_query_set,).index(question)
+
+
     choices = Choice.objects.filter(question=question)
     context = {
         "question": question,
         "choices": choices,
         "question_answered": False,
         "next_question": None,
-        "number_good_answer": 0,
+        "score": 0,
         "menu_id": menu_id,
+        "is_last_question": is_last_question,
+        "nb_questions": len((*question_query_set,))
                }
     if Question.objects.filter(pk=question_id).exists():
         context.update({"next_question": question_id + 1})
-        print(question_id)
 
     if request.method == 'POST':
         buttons_states_list=[]
@@ -94,6 +97,12 @@ def launch_quiz(request, quiz_id):
     return render(request, 'restoQuiz/launch_quiz.html')
 
 
+def recap(request, score, nb_questions):
+    context = {
+        "score": score,
+        "nb_questions": nb_questions,
+    }
+    return render(request, 'restoQuiz/recap.html', context=context)
 
 
 

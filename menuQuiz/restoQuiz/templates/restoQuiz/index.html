@@ -14,13 +14,13 @@
     <div class="bg-text textaligncenter">
 
         <div class="quizItemFromMenu">
-            {{ menus.description }}
+            {{ menu.description }}
         </div>
         <div class="indexStartQuizButton">
             {% csrf_token %}
-            <a href="{% url 'restoQuiz:detail' question_list.0.id menus.id%} ">
+            <a href="{% url 'restoQuiz:detail' question_list.0.id menu.id%} ">
                 <button class=" col-lg-5 col-md-6 col-sm-12 m-1 btn btn-lg btn-dark">
-                    {{ menus.title }}
+                    {{ menu.title }}
                 </button>
             </a>
 
