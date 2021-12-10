@@ -118,3 +118,14 @@ class SessionQuiz(models.Model):
 
     def __str__(self):
         return self.choice_text
+
+class ResultScoreFinal(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Utilisateur")
+    menu = models.ForeignKey(MenuQuiz, on_delete=models.CASCADE, verbose_name="Quiz associé")
+    score = models.IntegerField(blank=True, editable=True, default=0)
+    nb_question = models.IntegerField(blank=True, editable=True, default=0)
+    creation_date = models.DateTimeField(auto_now_add=True, editable=True)
+    is_final_result = models.BooleanField(default=False, verbose_name="Résultat final (Ne pas toucher)")
+
+    def __str__(self):
+        return self.score.__str__()
