@@ -15,7 +15,6 @@ def index(request):
     # Todo: Make it better, not raw like this
     current_menu_quiz = MenuQuiz.objects.filter(pk=1)[0]
     latest_question_list = Question.objects.filter(associated_quiz=current_menu_quiz).order_by("id")
-
     context = {"question_list": latest_question_list,
                "menu": current_menu_quiz, }
     return render(request, 'restoQuiz/index.html', context)
@@ -84,10 +83,6 @@ def detail(request, question_id, menu_id):
     return render(request, 'restoQuiz/question.html', context)
 
 
-def launch_quiz(request, quiz_id):
-    return render(request, 'restoQuiz/launch_quiz.html')
-
-
 def recap(request, score, nb_questions):
     context = {
         "score": score,
@@ -95,6 +90,10 @@ def recap(request, score, nb_questions):
     }
     return render(request, 'restoQuiz/recap.html', context=context)
 
+def results(request):
+    results_list = (*ResultScoreFinal.objects.order_by("score"),)
+    context = {"results": results_list,}
+    return render(request, 'restoQuiz/result.html', context)
 
 @csrf_exempt
 def signup(request):

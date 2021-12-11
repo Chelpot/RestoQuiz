@@ -1,0 +1,43 @@
+{% include "restoQuiz/header.html" %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'restoQuiz/style.css' %}" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html">
+
+<body class="bg_image">
+
+<div class="index textaligncenter">
+    <div class="indexTitle bg-text-title">
+        <h1>Le classement tant attendu !</h1>
+    </div>
+
+    <div class="textaligncenter">
+
+        <table class="table table-light table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Score</th>
+                <th scope="col">Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for result in results %}
+            <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{ result.user.name}}</td>
+                <td>{{ result.score }} / {{ result.nb_question }}</td>
+                <td>{{ result.creation_date }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+
+</div>
+
+
+</body>
