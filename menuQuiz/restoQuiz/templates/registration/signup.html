@@ -3,23 +3,27 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'restoQuiz/style.css' %}">
 
-<div class="container">
-    <h2>Créer un compte</h2>
-    <form method="post">
-        {% csrf_token %}
-        {% for field in form %}
-        <p>
-            {{ field.label_tag }}<br>
-            {{ field }}
-            {% if field.help_text %}
-            <small style="color: grey">{{ field.help_text }}</small>
-            {% endif %}
-            {% for error in field.errors %}
-        <p style="color: red">{{ error }}</p>
-        {% endfor %}
-        </p>
-        {% endfor %}
-        <button class="btn btn-lg btn-dark" type="submit">Créer le compte</button>
+<body class="bg_image">
+<div class="index">
+    <div class="indexTitle bg-text-title">
+        <h2>Créer un compte</h2>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+            <p>
+                {{ field.label_tag }}<br>
+                {{ field }}
+                {% if field.help_text %}
+                <small style="color: white">{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+            <p style="color: red">{{ error }}</p>
+            {% endfor %}
+            </p>
+            {% endfor %}
+            <button class="btn btn-lg btn-dark" type="submit">Créer le compte</button>
 
-    </form>
+        </form>
+    </div>
 </div>
+</body>

@@ -2,34 +2,38 @@
 {% load static %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'restoQuiz/style.css' %}">
-<div class="container">
-    <h2>S'identifier</h2>
-     <div id="login">
-        <form class="form-horizontal" name="LoginForm" action="/login_user/" method="post">
-        {% csrf_token %}
-        {% if next %}
-            <input type="hidden" name="next" value="{{ next }}" />
-        {% endif %}
-        <div class="control-group">
-            <label class="control-label" for="username">Email</label>
-            <div class="controls">
-                <input type="text" id="username" name="username"  placeholder="Username">
-            </div>
+<body class="bg_image">
+
+<div class="index textaligncenter">
+    <div class="indexTitle bg-text-title">
+        <h2>S'identifier</h2>
+        <div id="login">
+            <form class="form-horizontal" name="LoginForm" action="/login_user/" method="post">
+                {% csrf_token %}
+                {% if next %}
+                <input type="hidden" name="next" value="{{ next }}"/>
+                {% endif %}
+                <div class="control-group">
+                    <label class="control-label" for="username">Email</label>
+                    <div class="controls">
+                        <input type="text" id="username" name="username" placeholder="Username">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="password">Mot de passe</label>
+                    <div class="controls">
+                        <input type="password" name="password" id="password" placeholder="Password">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <button class="btn btn-lg btn-dark" type="submit">Se connecter</button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="control-group">
-            <label class="control-label" for="password">Mot de passe</label>
-            <div class="controls">
-                <input type="password" name="password" id="password" placeholder="Password">
-            </div>
-        </div>
-        <div class="control-group">
-            <div class="controls">
-                <button class="btn btn-lg btn-dark" type="submit" >Se connecter</button>
-            </div>
-        </div>
-        </form>
+
+        <a href="/signup">Créer un compte</a>
     </div>
-
-    <a href="/signup">Créer un compte</a>
 </div>
-
+</body>
