@@ -83,8 +83,9 @@ def detail(request, question_id, menu_id):
                 "score": result.score,
             })
         return render(request, 'restoQuiz/question.html', context)
-    else:
-        return render(request, 'registration/must_be_logged_in.html')
+    return render(request, 'restoQuiz/question.html', context)
+    # else:
+    #     return render(request, 'registration/must_be_logged_in.html')
 
 
 def recap(request, score, nb_questions):
