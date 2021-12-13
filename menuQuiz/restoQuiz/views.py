@@ -22,28 +22,28 @@ def index(request):
 
 def detail(request, question_id, menu_id):
 
-    current_menu_quiz = MenuQuiz.objects.filter(pk=menu_id)[0]
-
-    question_query_set = Question.objects.filter(associated_quiz=current_menu_quiz).order_by('id')
-    question = get_object_or_404(Question, pk=question_id)
-    question_list = (*question_query_set,)
-    is_last_question = len(question_list) - 1 == question_list.index(question)
-    if not is_last_question:
-        next_question = question_list[question_list.index(question) + 1].id
-    else:
-        next_question = 0
-
-    choices = Choice.objects.filter(question=question)
-    context = {
-        "question": question,
-        "choices": choices,
-        "question_answered": False,
-        "next_question": next_question,
-        "menu_id": menu_id,
-        "is_last_question": is_last_question,
-        "nb_questions": len(question_list)
-    }
     if request.user.is_authenticated:
+        current_menu_quiz = MenuQuiz.objects.filter(pk=menu_id)[0]
+
+        question_query_set = Question.objects.filter(associated_quiz=current_menu_quiz).order_by('id')
+        question = get_object_or_404(Question, pk=question_id)
+        question_list = (*question_query_set,)
+        is_last_question = len(question_list) - 1 == question_list.index(question)
+        if not is_last_question:
+            next_question = question_list[question_list.index(question) + 1].id
+        else:
+            next_question = 0
+
+        choices = Choice.objects.filter(question=question)
+        context = {
+            "question": question,
+            "choices": choices,
+            "question_answered": False,
+            "next_question": next_question,
+            "menu_id": menu_id,
+            "is_last_question": is_last_question,
+            "nb_questions": len(question_list)
+        }
 
         if request.method == 'POST':
             buttons_states_list = []
@@ -83,9 +83,8 @@ def detail(request, question_id, menu_id):
                 "score": result.score,
             })
         return render(request, 'restoQuiz/question.html', context)
-    return render(request, 'restoQuiz/question.html', context)
-    # else:
-    #     return render(request, 'registration/must_be_logged_in.html')
+    else:
+        return render(request, 'registration/must_be_logged_in.html')
 
 
 def recap(request, score, nb_questions):
