@@ -33,7 +33,13 @@
                     </div>
                     {% endfor %}
                 </div>
+
                 {% if question_answered != True %}
+                {% if is_first_question %}
+                <p>Veuillez inscrire votre nom avant de continuer</p>
+                <label for="name">Nom: </label>
+                <input id="name" type="text" name="name" value=""><br>
+                {% endif %}
                 <button class="col-lg-5 col-md-6 col-sm-12 m-1 btn btn-lg btn-dark" type="submit">
                     Valider les réponses
                 </button>
@@ -45,9 +51,7 @@
                 {% if all_good %}
                 <p>Félicitation, toutes la question a été parfaitement répondu !</p>
                 {% else %}
-                {% for k, v in recap_answers.items%}
-                <p>{{k}} : {{v}}</p>
-                {% endfor %}
+                <p>les bonnes réponses etaient : "{{good_answers}}"</p>
                 {% endif %}
                 <p>{{question.answer_text}}</p>
 

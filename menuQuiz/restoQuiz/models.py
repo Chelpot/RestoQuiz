@@ -122,6 +122,7 @@ class SessionQuiz(models.Model):
 class ResultScoreFinal(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Utilisateur")
     menu = models.ForeignKey(MenuQuiz, on_delete=models.CASCADE, verbose_name="Quiz associé")
+    name_leaderboard = models.CharField(max_length=200, verbose_name="Pseudo", default="Non renseigné", null=True)
     score = models.IntegerField(blank=True, editable=True, default=0)
     nb_question = models.IntegerField(blank=True, editable=True, default=0)
     creation_date = models.DateTimeField(auto_now_add=True, editable=True)

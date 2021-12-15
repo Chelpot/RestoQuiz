@@ -17,7 +17,8 @@
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Nom</th>
+                <th scope="col">Compte</th>
+                <th scope="col">Nom de l'utilisateur</th>
                 <th scope="col">Score</th>
                 <th scope="col">Date</th>
             </tr>
@@ -27,6 +28,7 @@
             <tr>
                 <th scope="row">{{forloop.counter}}</th>
                 <td>{{ result.user.name}}</td>
+                <td>{{ result.name_leaderboard}}</td>
                 <td>{{ result.score }} / {{ result.nb_question }}</td>
                 <td>{{ result.creation_date }}</td>
             </tr>
