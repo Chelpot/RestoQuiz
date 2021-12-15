@@ -7,8 +7,8 @@ class ChoiceAdmin(admin.ModelAdmin):
     list_display = ('question', 'choice_text', 'is_correct_answer')
 
 class UserAdmin(admin.ModelAdmin):
-    fields = ['email', 'name', 'is_superuser', 'creation_date']
-    list_display = ('email', 'name', 'is_superuser', 'creation_date')
+    fields = ['email', 'name', 'is_superuser']
+    list_display = ('email', 'name', 'is_superuser')
 
 class MenuQuizAdmin(admin.ModelAdmin):
     fields = ['title', 'description']
